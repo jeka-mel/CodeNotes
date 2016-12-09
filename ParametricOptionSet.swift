@@ -2,11 +2,11 @@ import Foundation
 
 
 enum ParametricOption {
-	case owner(String?)
+	case owner(Int?)
 	case receiver(String?)
 	case fileName(String?)
 	case apiPath(String?)
-	case width(CGFloat)
+	case width(Float)
 	case mimeType(String?)
 }
 
@@ -17,7 +17,6 @@ func == (lhs: ParametricOption, rhs: ParametricOption) -> Bool {
 	case (.owner(_), .owner(_)) : return true
 	case (.receiver(_), .receiver(_)) : return true
 	case (.fileName(_), .fileName(_)) : return true
-	case (.headerName(_), .headerName(_)) : return true
 	case (.apiPath(_), .apiPath(_)) : return true
 	case (.width(_), .width(_)) : return true
 	case (.mimeType(_), .mimeType(_)) : return true
@@ -40,7 +39,7 @@ extension CollectionType where Generator.Element == ParametricOption {
 		return indexOf { $0 == target }.flatMap { self[$0] }
 	}
 	
-	var owner: String? {
+	var owner: Int? {
 		if let item = firstMatchIgnoringValue(.owner(nil)),
 			case .owner(let mOwner) = item { return mOwner }
 		return nil
@@ -55,12 +54,7 @@ extension CollectionType where Generator.Element == ParametricOption {
 			case .fileName(let value) = item { return value }
 		return nil
 	}
-	var headerName: String? {
-		if let item = firstMatchIgnoringValue(.headerName(nil)),
-			case .headerName(let value) = item { return value }
-		return nil
-	}
-	var width: CGFloat? {
+	var width: Float? {
 		if let item = firstMatchIgnoringValue(.width(0)),
 			case .width(let value) = item { return value }
 		return nil
